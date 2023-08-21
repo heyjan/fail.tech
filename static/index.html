@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Search</title>
+</head>
+<body style="padding: 10px">
+
+<input type="text" id="queryAddress" placeholder="Search by Address...">
+<input type="text" id="queryTwitter" placeholder="Search by Twitter Username...">
+<button onclick="search()">Search</button>
+
+<div id="results"></div>
+<button onclick="changePage(-1)">Previous</button>
+<button onclick="changePage(1)">Next</button>
+
+<script>
+let currentPage = 1;
+
+function search() {
+    let queryAddress = document.getElementById('queryAddress').value;
+    let queryTwitter = document.getElementById('queryTwitter').value;
+
+    let searchURL = `/search?page=${currentPage}&per_page=10`;
+
+    // Append queries based on input
+    if (queryAddress) searchURL += `&address=${queryAddress}`;
+    if (queryTwitter) searchURL += `&twitter=${queryTwitter}`;
+
+    fetch(searchURL)
+        .then(response => response.json())
+        .then(data => {
+            let resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';  // Clear previous results
+
+            if (data.length === 0) {
+                resultsDiv.innerHTML = '<p>No more results.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                // Convert fields to links or images
+                let addressLink = `<a href="https://etherscan.io/address/${item.address}" target="_blank">${item.address}</a>`;
+                let twitterLink = `<a href="https://twitter.com/${item.twitterUsername}" target="_blank">${item.twitterUsername}</a>`;
+                let twitterPfpImage = `<img src="${item.twitterPfpUrl}" alt="${item.twitterName}" width="50">`;
+
+                resultsDiv.innerHTML += `<div>
+                    ${addressLink} |
+                    ${twitterLink} |
+                    ${twitterPfpImage}
+                </div>`;
+            });
+        });
+}
+
+function changePage(increment) {
+    currentPage += increment;
+    search();  // Run the search again with the updated page number
+}
+
+</script>
+
+</body>
+</html>
