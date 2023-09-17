@@ -100,7 +100,7 @@ async def on_ready():
     background_task.start()
 
 def run_discord():
-    asyncio.run(client.start(BOT_TOKEN))
+    client.run(BOT_TOKEN)
 
 if __name__ == '__main__':
     # Start the Discord bot in a separate thread
