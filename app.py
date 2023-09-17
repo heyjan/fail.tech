@@ -34,7 +34,7 @@ async def background_task():
         except Exception as e:
             print(f"Error sending message: {e}")
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook_listener():
     webhook_token = request.headers.get('Arkham-Webhook-Token')
 
