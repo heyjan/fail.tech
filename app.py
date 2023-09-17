@@ -54,6 +54,9 @@ def webhook_listener():
 @client.event
 async def on_ready():
     print(f'Logged in as {client.user.name}({client.user.id})')
+    target_channel = client.get_channel(CHANNEL_ID)
+    await target_channel.send(
+        "Script now running watching for Arkham Alerts")
     background_task.start()
 
 def run_discord():
