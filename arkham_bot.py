@@ -11,7 +11,7 @@ client = discord.Client(intents=intents)
 
 # Retrieve the environment variables:
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-CHANNEL_ID = int(os.environ.get('CHANNEL_ID', 0))
+CHANNEL_ID = 1142072323311144962
 
 @tasks.loop(seconds=5)
 async def background_task():
