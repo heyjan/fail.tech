@@ -52,9 +52,6 @@ message_queue = deque()
 
 @app.route('/', methods=['POST'])
 def webhook_listener():
-    content_type = request.headers.get('Content-Type')
-    if not content_type or 'application/json' not in content_type:
-        abort(415)  # Unsupported Media Type
     webhook_token = request.headers.get('Arkham-Webhook-Token')
 
     valid_tokens = {'Kep9w4rCgMx09o', 'Token2', 'Token3'}  # Add your valid tokens to this set
