@@ -51,7 +51,7 @@ def search():
 message_queue = deque()
 
 @app.route('/', methods=['POST'])
-def webhook_listener(client):
+def webhook_listener():
     content_type = request.headers.get('Content-Type')
     if not content_type or 'application/json' not in content_type:
         abort(415)  # Unsupported Media Type
