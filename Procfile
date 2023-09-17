@@ -1,2 +1,2 @@
 web: gunicorn app:app
-worker: python app.py
+worker: python arkham_bot.py
