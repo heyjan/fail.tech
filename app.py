@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, abort, send_from_directory
 import discord
 from discord.ext import tasks
@@ -54,8 +55,9 @@ intents.guilds = True
 # Initialize the Discord client with the required intents
 client = discord.Client(intents=intents)
 
-BOT_TOKEN = 'MTEzNDI5NjQ2OTY3MTc5MjY5MA.G-qKjO.YEODf5wKa34kVfA-Xwm3aBMOCocMTSsUWAUqfA'
-CHANNEL_ID = 1142072323311144962
+# Retrieve the environment variables:
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+CHANNEL_ID = int(os.environ.get('CHANNEL_ID', 0))  # Using int() because channel ID is numeric
 
 # Create a queue to hold messages that we want to send to Discord
 message_queue = deque()
